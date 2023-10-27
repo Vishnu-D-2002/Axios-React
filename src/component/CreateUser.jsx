@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function CreateUser({ allData,setAllData }) {
   const [newUser, setNewUser] = useState([])
-  
+  const navigate = useNavigate();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewUser({ ...newUser, [name]: value });
@@ -14,7 +15,7 @@ function CreateUser({ allData,setAllData }) {
       const response = await axios.post('https://jsonplaceholder.typicode.com/users', newUser)
       setAllData([...allData, response.data]);
       setNewUser({ name: '', username: '', email: '' ,phone:''});
-
+      navigate("/")
     }
     catch (error) {
       console.log(error)

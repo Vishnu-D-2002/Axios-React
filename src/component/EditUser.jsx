@@ -1,7 +1,18 @@
 import React, { useState } from 'react';
 
-function EditUser({ user, onUpdateUser }) {
-  const [editedUser, setEditedUser] = useState(user);
+function EditUser({ allData, setAllData }) {
+  const [editingUserId, setEditingUserId] = useState(null);
+  const [editedUser, setEditedUser] = useState({ name: '', username: '', email: '', phone: '' });
+
+  const handleEdit = (user) => {
+    setEditingUserId(user.id);
+    setEditedUser({
+      name: user.name,
+      username: user.username,
+      email: user.email,
+      phone: user.phone,
+    });
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -9,50 +20,76 @@ function EditUser({ user, onUpdateUser }) {
   };
 
   const handleSave = () => {
-    onUpdateUser(editedUser);
+    const updatedData = allData.map((user) => {
+      if (user.id === editingUserId) {
+        return { ...user, ...editedUser };
+      }
+      return user;
+    });
+
+    setAllData(updatedData);
+
+    setEditingUserId(null);
+    setEditedUser({ name: '', username: '', email: '', phone: '' });
   };
 
   return (
     <div>
-      <div>
-        <label>Name:</label>
-        <input
-          type="text"
-          name="name"
-          value={editedUser.name}
-          onChange={handleChange}
-        />
+      <div className="row justify-content-center">
+      {allData.map((user) => (
+        <div key={user.id} className='card col-12 col-md-4 col-lg-2 m-4 p-4 ' id='card'>
+            {editingUserId === user.id ? (
+              <div>
+                <label>Name:</label>
+                <input
+                  type='text'
+                  name='name'
+                  value={editedUser.name}
+                  onChange={handleChange}
+                  className='form-control'
+                />
+                <label>User Name:</label>
+                <input
+                  type='text'
+                  name='username'
+                  value={editedUser.username}
+                  onChange={handleChange}
+                  className='form-control' 
+                />
+                <label>Email:</label>
+                <input
+                  type='text'
+                  name='email'
+                  value={editedUser.email}
+                  onChange={handleChange}
+                  className='form-control' 
+                />
+                <label>Phone:</label>
+                <input
+                  type='text'
+                  name='phone'
+                  value={editedUser.phone}
+                  onChange={handleChange}
+                  className='form-control' 
+                />
+                <button className='btn btn-primary m-4' onClick={handleSave}>
+                  Save
+                </button>
+              </div>
+            ) : (
+              <div>
+                <div className='card-title'>Name: {user.name}</div>
+                <div className='card-title'>User Name: {user.username}</div>
+                <div className='card-title'>Email: {user.email}</div>
+                <div>Phone: {user.phone}</div>
+                <button className='btn btn-success m-4' onClick={() => handleEdit(user)}>
+                  Edit
+                </button>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
-      <div>
-        <label>User Name:</label>
-        <input
-          type="text"
-          name="username"
-          value={editedUser.username}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label>Email:</label>
-        <input
-          type="text"
-          name="email"
-          value={editedUser.email}
-          onChange={handleChange}
-        />
-      </div>
-      <div>
-        <label>Phone:</label>
-        <input
-          type="text"
-          name="phone"
-          value={editedUser.phone}
-          onChange={handleChange}
-        />
-      </div>
-      <button className="btn btn-primary" onClick={handleSave}>
-        Save
-      </button>
     </div>
   );
 }
