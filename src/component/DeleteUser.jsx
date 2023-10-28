@@ -15,11 +15,11 @@ function DeleteUser({ allData,setAllData }) {
     <div>  <div className="row justify-content-center">
     {allData.map((user) => (
       <div key={user.id} id='card' className='card col-12 col-md-4 col-lg-2 m-4 p-4 '>
-          <div className='card-title'>Name: {user.name}</div>
-            <div className='card-title'>User Name: {user.username}</div>
-            <div className='card-title'>Email:{user.email}</div>
-            <div>Phone: {user.phone}</div>
-           <div> <button className='m-4 btn btn-primary' onClick={()=>handleDelete(user.id)}>Delete</button></div>
+          <div className='card-title'><strong>Name: </strong>{user.name}</div>
+            <div className='card-title'><strong>User Name: </strong>{user.username}</div>
+            <div className='card-title'><strong>Email: </strong>{user.email}</div>
+            <div><strong>Phone: </strong>{user.phone}</div>
+           <div> <button className='m-4 btn btn-primary bg-danger' onClick={()=>handleDelete(user.id)}>Delete</button></div>
         </div>
     ))}      
   </div></div>

@@ -78,11 +78,11 @@ function EditUser({ allData, setAllData }) {
               </div>
             ) : (
               <div>
-                <div className='card-title'>Name: {user.name}</div>
-                <div className='card-title'>User Name: {user.username}</div>
-                <div className='card-title'>Email: {user.email}</div>
-                <div>Phone: {user.phone}</div>
-                <button className='btn btn-success m-4' onClick={() => handleEdit(user)}>
+                <div className='card-title'><strong>Name: </strong>{user.name}</div>
+                <div className='card-title'><strong>User Name: </strong>{user.username}</div>
+                <div className='card-title'><strong>Email: </strong>{user.email}</div>
+                <div><strong>Phone: </strong>{user.phone}</div>
+                <button className='btn btn-success m-4 ' onClick={() => handleEdit(user)}>
                   Edit
                 </button>
               </div>
