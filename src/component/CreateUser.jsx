@@ -1,14 +1,18 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function CreateUser({ allData, setAllData }) {
+  useEffect(() => {
+    reference.current.focus();
+  },[])
   const [newUser, setNewUser] = useState({
     name: '',
     username: '',
     email: '',
     phone: '',
   });
+  const reference = useRef();
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
 
@@ -70,6 +74,7 @@ function CreateUser({ allData, setAllData }) {
           <input
             type='text'
             name='name'
+            ref={reference}
             value={newUser.name}
             onChange={handleChange}
             className={`form-control ${errors.name ? 'is-invalid' : ''}`}
